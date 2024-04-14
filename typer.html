@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Typer Webdev</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: green;
+    }
+
+    .word {
+      font-size: 70px;
+      text-align: center;
+    }
+
+    .input {
+      margin-top: 20px;
+      font-size: 30px;
+      padding: 10px;
+      width: 700px;
+    }
+
+    .timer, .score {
+      margin-top: 50px;
+      font-size: 50px;
+    }
+     h1 {
+  font-size: 60px;
+     }
+  </style>
+</head>
+<body>
+  <div>
+  <h1>Welcome to Typer Webdev</h1>
+  
+  
+    <div class="word" id="word"></div>
+    <input type="text" class="input" id="input">
+    <div class="timer" id="timer">10</div>
+    <div class="score" id="score">Score: 0</div>
+  </div>
+  
+
+  <script>
+    var words = ["Html", "Css", "Javascript", "Java", "Python", "Php", "Go lang", "Ruby", "C++", "C#"];
+    var currentWord = "";
+    var timer;
+    var timeLeft = 10;
+    var score = 0;
+
+    function pickRandomWord() {
+      clearInterval(timer);
+      var randomIndex = Math.floor(Math.random() * words.length);
+      currentWord = words[randomIndex];
+      document.getElementById("word").textContent = currentWord;
+      timeLeft = 10;
+      document.getElementById("timer").textContent = timeLeft;
+      timer = setInterval(countdown, 1000);
+    }
+
+    function countdown() {
+      timeLeft--;
+      document.getElementById("timer").textContent = timeLeft;
+      if (timeLeft <= 0) {
+        alert("Time's up!");
+        pickRandomWord();
+      }
+    }
+
+    document.getElementById("input").addEventListener("input", function(event) {
+      if (event.target.value === currentWord) {
+        event.target.value = "";
+        score++;
+        document.getElementById("score").textContent = "Score: " + score;
+        pickRandomWord();
+      }
+    });
+
+    pickRandomWord();
+  </script>
+</body>
+</html>
